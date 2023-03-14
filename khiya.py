@@ -11,7 +11,26 @@ digits = string.digits
 symbols = string.punctuation
 
 # Ask the user for the length of the password and convert it to an integer
-length = int(input("Enter the length of the password: "))
+length = input("Enter the length of the password: ")
+
+# Use a loop to validate the length of the password
+while True:
+  # Try to convert the length to an integer
+  try:
+    length = int(length)
+    # Check if the length is positive
+    if length > 0:
+      # Break out of the loop if the length is valid
+      break
+    else:
+      # Print an error message if the length is not positive
+      print("The length of the password must be a positive integer.")
+  except ValueError:
+    # Print an error message if the length is not an integer
+    print("The length of the password must be an integer.")
+
+  # Ask the user again for the length of the password
+  length = input("Enter the length of the password: ")
 
 # Ask the user for the types of characters they want to include and convert them to booleans
 lower = input("Do you want to include lowercase letters? (y/n): ") == "y"
