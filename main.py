@@ -1,57 +1,47 @@
 # A program that generates a random password based on some criteria
 
-# Import the random module
+# Import the random and string modules
 import random
+import string
 
 # Define the characters that can be used in the password
-lowercase = "abcdefghijklmnopqrstuvwxyz"
-uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-digits = "0123456789"
-symbols = "!@#$%^&*()_+-=[]{};:,./<>?"
+lowercase = string.ascii_lowercase
+uppercase = string.ascii_uppercase
+digits = string.digits
+symbols = string.punctuation
 
-# Ask the user for the length of the password
+# Ask the user for the length of the password and convert it to an integer
 length = int(input("Enter the length of the password: "))
 
-# Ask the user if they want to include lowercase letters
-lower = input("Do you want to include lowercase letters? (y/n): ")
+# Ask the user for the types of characters they want to include and convert them to booleans
+lower = input("Do you want to include lowercase letters? (y/n): ") == "y"
+upper = input("Do you want to include uppercase letters? (y/n): ") == "y"
+digit = input("Do you want to include digits? (y/n): ") == "y"
+symbol = input("Do you want to include symbols? (y/n): ") == "y"
 
-# Ask the user if they want to include uppercase letters
-upper = input("Do you want to include uppercase letters? (y/n): ")
-
-# Ask the user if they want to include digits
-digit = input("Do you want to include digits? (y/n): ")
-
-# Ask the user if they want to include symbols
-symbol = input("Do you want to include symbols? (y/n): ")
-
-# Create an empty string to store the possible characters
-chars = ""
+# Create a list to store the possible characters
+chars = []
 
 # Add the lowercase letters to the possible characters if the user wants them
-if lower == "y":
-  chars += lowercase
+if lower:
+  chars.extend(lowercase)
 
 # Add the uppercase letters to the possible characters if the user wants them
-if upper == "y":
-  chars += uppercase
+if upper:
+  chars.extend(uppercase)
 
 # Add the digits to the possible characters if the user wants them
-if digit == "y":
-  chars += digits
+if digit:
+  chars.extend(digits)
 
 # Add the symbols to the possible characters if the user wants them
-if symbol == "y":
-  chars += symbols
+if symbol:
+  chars.extend(symbols)
 
 # Check if the possible characters are not empty
-if chars != "":
-  # Create an empty string to store the generated password
-  password = ""
-
-  # Loop for the length of the password
-  for i in range(length):
-    # Choose a random character from the possible characters and add it to the password
-    password += random.choice(chars)
+if chars:
+  # Generate a random password from the possible characters and join it into a string
+  password = "".join(random.choices(chars, k=length))
 
   # Print the generated password
   print("Your password is:", password)
